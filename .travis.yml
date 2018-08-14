@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for juan-pablo-vielma/GLPKBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: E4VrfOvzubxKIrD3B0XiTd1u7SPWtMElXh6bvEDd0fW+JzntZdolsCTCOsYYMV9aiqSuo+oDHJuvzMkv9zkHzb4oWmzW/bCs4TepAVF5l5aNj9zNthlV0sArDo1c3MCkVV8TTvtTXDpokZL5DlKuzwWBevphmLKQmbnhIyTU7PoTDQd0FM4xE60RZ1i4J9zsJf7NkKwA0klV+BjNBTL5709tEQDG8kUu/eHWlgM823aUIE1d43H8F081CvWAPh0sPL6A5Kjg6d2JOW3i8I6o3G776DVBZJjdgpFIe55kYpgd3rAQmYGMz1oIgYOhVb6xwE2h5ad1tjsCTns7mnpY/0hEAi2P2/kueMalBK2Yxu+LBdKGNz7NsogRbOiOkLx+ucrA7ZFD7SOMobEr1oD+hqxvE17S8lnzrnfjPr46uzMzowneQr2Y4spDIvQd0aVuPtvX1/z0v2qDj2i6oe7H17nP+5BJ/60IUzfysSKBEMiKucXOwRAx6ugUISk0eIt7Y+b8Lb9DcV1WSPEsk4FkNQCI56EphG3sgt1GN50+FnX7UrCHuYaFeiBNpz3lJ3hmys4RsNhhsRBFtegR1yxh2Utvx5AMVfuv6/sFlctUF7PJLjqpR5o32ZsoawAfgYET05EOCYAeEH7ERKltJfqpQCkuNrMCDKRJaQJy8+t72Lc=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: juan-pablo-vielma/GLPKBuilder
+        tags: true
