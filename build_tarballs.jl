@@ -4,7 +4,7 @@ using BinaryBuilder
 
 # Collection of sources required to build GLPKBuilder
 sources = [
-    "http://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz" =>
+    "http://ftpmirror.gnu.org/gnu/glpk/glpk-4.65.tar.gz" =>
     "4281e29b628864dfe48d393a7bedd781e5b475387c20d8b0158f329994721a10",
 
 ]
