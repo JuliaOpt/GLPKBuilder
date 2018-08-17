@@ -17,7 +17,7 @@ cd $WORKSPACE/srcdir
 cd glpk-4.65/
 export LDFLAGS="-L${prefix}/lib"                         
 if [ $target = "x86_64-w64-mingw32" ] || [ $target = "i686-w64-mingw32" ]; then export CPPFLAGS="-I${prefix}/include -D__WOE__=1";   else export CPPFLAGS="-I${prefix}/include"; fi
-./configure --prefix=$prefix  --host=${target} --with-gmp 
+./configure --prefix=$prefix  --host=${target} 
 make -j${nproc}
 make install
 
