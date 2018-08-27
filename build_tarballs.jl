@@ -2,6 +2,9 @@
 # `julia build_tarballs.jl --help` to see a usage message.
 using BinaryBuilder
 
+name = "GLPKBuilder"
+version = v"4.65"
+
 # Collection of sources required to build GLPKBuilder
 sources = [
     "http://ftpmirror.gnu.org/gnu/glpk/glpk-4.65.tar.gz" =>
@@ -17,7 +20,7 @@ cd $WORKSPACE/srcdir
 cd glpk-4.65/
 export LDFLAGS="-L${prefix}/lib"                         
 if [ $target = "x86_64-w64-mingw32" ] || [ $target = "i686-w64-mingw32" ]; then export CPPFLAGS="-I${prefix}/include -D__WOE__=1";   else export CPPFLAGS="-I${prefix}/include"; fi
-./configure --prefix=$prefix  --host=${target} 
+./configure --prefix=$prefix  --host=${target} --with-gmp
 make -j${nproc}
 make install
 
@@ -51,5 +54,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "GLPKBuilder", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
 
