@@ -8,7 +8,7 @@ version = v"4.64"
 # Collection of sources required to build GLPKBuilder
 sources = [
     "http://ftpmirror.gnu.org/gnu/glpk/glpk-4.64.tar.gz" =>
-    "4281e29b628864dfe48d393a7bedd781e5b475387c20d8b0158f329994721a10",
+    "539267f40ea3e09c3b76a31c8747f559e8a097ec0cda8f1a3778eec3e4c3cc24",
 
 ]
 
